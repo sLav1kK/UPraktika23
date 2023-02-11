@@ -7,78 +7,65 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>True Games</title>
+    <title>Copy Star - продажа копировального оборудования</title>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('font/f/Trueno-75PE.otf') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('styles.css') }}">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
-            <div class="container">
-                <p class="navbar-brand m-0">
-                    True Games
-                </p>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    	<section class="header">
+	      <div class="container">
+	        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+	          <a href="{{ route('about') }}" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+	            <img src="/img/logo3.png" class="logo" alt="">
+	          </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li><a class="nav-link" href="{{ route('about') }}">О нас</a></li>
-                        <li><a class="nav-link" href="{{ route('catalog') }}">Каталог</a></li>
-                        <li><a class="nav-link" href="{{ route('geo') }}">Где нас найти?</a></li>
-                    </ul>
+	          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+	            <li><a href="{{ route('about') }}" class="nav-link px-4 link-dark">О нас</a></li>
+	            <li><a href="{{ route('catalog') }}" class="nav-link px-4 link-dark">Каталог</a></li>
+	            <li><a href="{{ route('geo') }}" class="nav-link px-4 link-dark">Где нас найти?</a></li>
+	          </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
-                                </li>
-                            @endif
+	          <div class="col-md-3 text-end">
+	            @guest
+                    @if (Route::has('login'))
+                            <a href="{{ route('login') }}" class="btn btn-outline-info">{{ __('Вход') }}</a>
+                    @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                    @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="btn btn-outline-dark">{{ __('Регистрация') }}</a>
+                    @endif
+                @else
+                    <li class="btn btn-outline-info nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('home') }}">Личный кабинет</a>
-                                    <a class="dropdown-item" href="{{ route('cart') }}">Корзина</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Выйти') }}
-                                    </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item bg" href="{{ route('home') }}">Личный кабинет</a>
+                            <a class="dropdown-item bg" href="{{ route('cart') }}">Корзина</a>
+                            <a class="dropdown-item bg" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Выйти') }}
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
+	          </div>
+	        </header>
+	      </div>
+	    </section>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

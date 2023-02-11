@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 pad-20">
             <div class="card">
                 <div class="card-header">{{ __('Личный кабинет') }}</div>
 
@@ -18,7 +18,7 @@
                     <div class="p-50">
                         @if(Auth::user()->role == 2)
                             <p>Вам открыт доступ к админ панели</p>
-                            <a href="/admin">Вход</a>
+                            <a href="/admin" class="btn btn-outline-info">Вход</a>
                         @endif
                     </div>
                 </div>

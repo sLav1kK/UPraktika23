@@ -107,7 +107,7 @@
                             <label for="rule" class="col-md-4 col-form-label text-md-end">{{ __('Согласие с правилами') }}</label>
 
                             <div class="col-md-6">
-                                <input id="rule" type="checkbox" class="@error('rule') is-invalid @enderror" name="rule" required>
+                                <input id="rule" type="checkbox" class="mt-15 @error('rule') is-invalid @enderror" name="rule" required>
 
                                 @error('Согласие с правилами')
                                     <span class="invalid-feedback" role="alert">
@@ -119,7 +119,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-outline-info">
                                     {{ __('Регистрация') }}
                                 </button>
                             </div>
