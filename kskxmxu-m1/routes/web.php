@@ -19,7 +19,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
+Route::match(['get', 'post'], '/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
+
+Route::get('/admin/edit/{id}', [App\Http\Controllers\AdminController::class, 'edit'])->name('edit');
+
+Route::get('/admin/edit/{$id}/updateproduct', [App\Http\Controllers\AdminController::class, 'update'])->name('updateproduct');
+
+Route::get('/admin/edit/{$id}/deleteproduct', [App\Http\Controllers\AdminController::class, 'delete'])->name('deleteproduct');
 
 Route::get('/catalog', [App\Http\Controllers\ProductController::class, 'show'])->name('catalog');
 
@@ -28,6 +34,12 @@ Route::get('/catalog/{id}', [App\Http\Controllers\ProductController::class, 'one
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
 
 Route::get('/cart/add/{id}', [App\Http\Controllers\CartController::class, 'add'])->name('add');
+
+Route::get('/cart/plus/{id}', [App\Http\Controllers\CartController::class, 'plus'])->name('plus');
+
+Route::get('/cart/minus/{id}', [App\Http\Controllers\CartController::class, 'minus'])->name('minus');
+
+Route::get('/cart/pay/{id}', [App\Http\Controllers\CartController::class, 'pay'])->name('pay');
 
 Route::get('/geo', function () {
     return view('geo');

@@ -16,6 +16,8 @@
                     </p>
                     <p>Почта: {{ Auth::user()->email }}</p>
                     <div class="p-50">
+                        <p>Открыть корзину с заказами</p>
+                        <a class="btn btn-outline-info mb-20" href="{{ route('cart') }}">Корзина</a>
                         @if(Auth::user()->role == 2)
                             <p>Вам открыт доступ к админ панели</p>
                             <a href="/admin" class="btn btn-outline-info">Вход</a>

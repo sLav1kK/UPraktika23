@@ -76,6 +76,7 @@ header .nav-link:hover
 {
 	border-radius: 0px!important;
     width: 100%!important;
+    height: 100%!important;
 }
 .card-link
 {
@@ -223,4 +224,31 @@ li.nav-item.dropdown::marker
 .mt-15
 {
     margin-top: 14px!important;
+}
+.mb-20
+{
+    margin-bottom: 20px;
+}
+.ImgCart
+{
+    width: 165px!important;
+}
+.td-n
+{
+    text-decoration: none;
+    color: #00a8f3;
+}
+.w-mc
+{
+    width: max-content;
+    padding: 7px;
+}
+.plr-40
+{
+    padding-left: 40px!important;
+    padding-right: 40px!important;
+}
+.mb-40
+{
+    margin-bottom: 40px!important;
 }
