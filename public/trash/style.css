@@ -1,0 +1,111 @@
+.carousel-caption h5
+{
+	color: #3681ff;
+    font-weight: 800;
+}
+.carousel-caption p
+{
+	color: gray;
+	font-weight: 800;
+}
+.carousel-item img
+{
+	height: 400px;
+}
+.carousel-item
+{
+	text-align: center;
+}
+.carousel-control-next-icon
+{
+	background-color: blue;
+}
+.carousel-control-prev-icon
+{
+	background-color: blue;
+}
+.col-xl-6.col-md-12.col-12 img
+{
+	width: 100%;
+}
+.col-xl-4.col-md-6.col-12
+{
+	text-align: center;
+}
+.col-xl-4.col-md-6.col-12 img
+{
+	width: 200px;
+    height: 165px;
+}
+input
+{
+	background-color: #8eb1ff;
+}
+body
+{
+	font-style: Trueno;
+}
+.p-100
+{
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+.t-right
+{
+	text-align: right;
+}
+.c-blue
+{
+	background-color: #8eb1ff;
+	border-radius: 6px;
+}
+.p-50
+{
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+.navbar-brand
+{
+	font-weight: bolder;
+}
+.navbar .nav-link
+{
+	font-weight: 700;
+}
+.p-20
+{
+	padding-top: 50px;
+	padding-bottom: 30px;
+}
+.OneProduct a
+{
+	text-decoration: none;
+}
+h2
+{
+	font-weight: 700!important;
+}
+.p-10
+{
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.f-20
+{
+	font-size: 20px;
+}
+.p-60
+{
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+.m-0
+{
+	margin-bottom: 0px;
+}
+.p-25
+{
+	padding: 25px;
+}
+nav
+{background-color: #e9ecef!important;}
