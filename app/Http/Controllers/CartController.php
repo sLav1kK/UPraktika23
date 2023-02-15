@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -65,4 +67,31 @@ class CartController extends Controller
 			}
 			return redirect('/cart');
 	}
+	public function saveOrder(Request $req) {
+        $this->validate($req, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|max:255',
+            'address' => 'required|max:255',
+        ])
+        $cart = Cart::getCart();
+        $user_id = auth()->check() ? auth()->user()->id : null;
+        $order = Order::create(
+            $req->all() + ['amount' => $cart->getAmount(), 'user_id' => $user_id]
+        );
+
+        foreach ($cart->products as $product) {
+            $order->items()->create([
+                'product_id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
+                'quantity' => $product->cart->count,
+                'cost' => $product->price * $product->cart->count,
+            ]);
+        }
+        $cart->delete();
+
+        return redirect()
+            ->route('cart');
+    }
 }

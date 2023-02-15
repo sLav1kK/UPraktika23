@@ -47,6 +47,8 @@ Route::get('/cart/minus/{id}', [App\Http\Controllers\CartController::class, 'min
 
 Route::get('/cart/pay/{id}', [App\Http\Controllers\CartController::class, 'pay'])->name('pay');
 
+Route::post('/cart/saveorder', [App\Http\Controllers\CartController::class, 'saveorder'])->name('saveorder');
+
 Route::get('/geo', function () {
     return view('geo');
 })->name('geo');
