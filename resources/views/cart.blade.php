@@ -18,7 +18,7 @@
           </div>
       	</div>
       	@endforeach
-      	<a href="" class="btn btn-warning">Сформировать заказ</a>
+      	<a href="{{ route('saveorder')}}" class="btn btn-warning">Сформировать заказ</a>
     </div>
 </div>
 @endsection

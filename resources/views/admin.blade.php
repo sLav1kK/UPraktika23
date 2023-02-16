@@ -56,6 +56,20 @@
                 </div>
               </div>
             @endforeach
+        </div>
+
+        <div>
+            @foreach($Carts as $ca)
+              <div class="col-xl-3 col-md-4 col-12 p-20">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ $ca->product->name }}</h5>
+                    <p class="card-text">{{ $ca->product->price }}</p>
+                    <a href="/home/deleteorder" ><button class="btn btn-danger">Удалить</button></a>
+                  </div>
+                </div>
+              </div>
+            @endforeach
         </div>    
             
             @else

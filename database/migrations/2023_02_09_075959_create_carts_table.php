@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('id_user');
             $table->integer('id_product');
             $table->integer('count');
+            $table->string('status')->default('Корзина');
             $table->timestamps();
         });
     }

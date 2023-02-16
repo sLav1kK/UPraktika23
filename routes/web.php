@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/home/deleteorder', [App\Http\Controllers\HomeController::class, 'deleteorder'])->name('deleteorder');
+
 Route::match(['get', 'post'], '/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
 
 Route::post('/admin/addcategory', [App\Http\Controllers\AdminController::class, 'addcategory'])->name('addcategory');
@@ -47,7 +49,7 @@ Route::get('/cart/minus/{id}', [App\Http\Controllers\CartController::class, 'min
 
 Route::get('/cart/pay/{id}', [App\Http\Controllers\CartController::class, 'pay'])->name('pay');
 
-Route::post('/cart/saveorder', [App\Http\Controllers\CartController::class, 'saveorder'])->name('saveorder');
+Route::get('/cart/saveorder', [App\Http\Controllers\CartController::class, 'saveorder'])->name('saveorder');
 
 Route::get('/geo', function () {
     return view('geo');

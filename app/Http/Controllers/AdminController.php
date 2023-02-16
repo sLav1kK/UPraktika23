@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Cart;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,8 @@ class AdminController extends Controller
         {
             $Products = Product::all();
             $Category = Category::all();
-            return view('admin', ["Products"=>$Products, "Category"=>$Category]);
+            $Carts = \App\Models\Cart::where('status', 'Новая')->get();
+            return view('admin', ["Products"=>$Products, "Category"=>$Category, "Carts"=>$Carts]);
         }
         if ($req->isMethod('post'))
         {
