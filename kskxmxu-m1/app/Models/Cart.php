@@ -11,6 +11,8 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['status'];
+
     public function User()
     {
     	return $this->hasOne(User::class, 'id', 'id_user');

@@ -20,14 +20,19 @@
                     <input id="year" type="text" class="form-control" name="year" placeholder="Год">
                     <input id="country" type="text" class="form-control" name="country" placeholder="Страна">
                     <input id="model" type="text" class="form-control" name="model" placeholder="Модель">
-                    <input id="name" type="submit"  class="btn btn-outline-info" value="Создать товар">
+                    <input type="submit"  class="btn btn-outline-info" value="Создать товар">
                 </form>
             </div>
             <div class="col-xl-6 col-md-6 col-12 t-c">
                 <h4>Список существующих категорий:</h4>
                 @foreach($Category as $c)
-                <p>{{ $c->id }} - {{ $c->name }},</p>
+                <p>{{ $c->id }} - {{ $c->name }}, </p><a href="/admin/deletecategory/{{ $c->id }}" class="btn btn-warning td-n">Удалить</a>
                 @endforeach
+                <h4>Добавление категорий</h4>
+                <form method="post" action="/admin/addcategory" enctype="multipart/form-data">@csrf
+                    <input id="name" type="text" class="form-control" name="name" placeholder="Имя">
+                    <input id="name" type="submit"  class="btn btn-outline-info" value="Создать категорию">
+                </form>
             </div>
         </div>
         <div class="row">
@@ -47,6 +52,21 @@
                   </ul>
                   <div class="card-body">
                     <a href="/admin/edit/{{$p->id}}" class="card-link c-b">Подробнее</a>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+        </div>
+
+        <div class="row">
+            <h4>Все заявки</h4>
+            @foreach($Carts as $ca)
+              <div class="col-xl-12 col-md-12 col-12 p-20">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ $ca->product->name }}</h5>
+                    <p class="card-text">{{ $ca->product->price }}</p>
+                    <a href="/home/deleteorder" ><button class="btn btn-danger">Удалить</button></a>
                   </div>
                 </div>
               </div>

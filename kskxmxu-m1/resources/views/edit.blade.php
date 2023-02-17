@@ -20,8 +20,8 @@
             @if(Auth::guest() == 0)
             <a href="/cart/add/{{$Product->id}}" class="btn btn-warning">В корзину</a>
             @endif
-            <a href="{{ route('updateproduct', $Product->id ) }}" ><button class="btn btn-primary">Редактировать</button></a>
-            <a href="{{ route('deleteproduct', $Product->id ) }}" ><button class="btn btn-danger">Удалить</button></a>
+            <a href="{{$Product->id}}/updateproduct" ><button class="btn btn-primary">Редактировать</button></a>
+            <a href="{{$Product->id}}/deleteproduct" ><button class="btn btn-danger">Удалить</button></a>
           </div>
         </div>
       </div>

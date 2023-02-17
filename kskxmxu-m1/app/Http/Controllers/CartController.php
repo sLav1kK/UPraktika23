@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
 	public function index()
 	{
-		$carts = \App\Models\Cart::where('id_user', Auth::user()->id)->get();
+		$carts = \App\Models\Cart::where('id_user', Auth::user()->id)->where('status', 'Корзина')->get();
 		return view('cart', ["carts"=>$carts]);
 	}
 	public function add($id)
@@ -65,4 +67,41 @@ class CartController extends Controller
 			}
 			return redirect('/cart');
 	}
+	public function saveOrder()
+	{
+			$cart = Cart::where("id_user", Auth::user()->id)->get();
+			foreach ($cart as $c) 
+			{
+				$c->increment('id_basket');
+            	$c->update(['status'=>'Новая']);
+        	}
+			return redirect('/cart');
+	}
+	/*public function saveOrder($id)
+	{
+		$cart = Cart::find($id);
+		$buffer = Order::where("id_user", Auth::user()->id)->get();
+		$bufferItem = OrderItem::where("id_user", Auth::user()->id)->get();
+		$sumpriceorder = OrderItem::where("id_order", Auth::user()->id)->sum('price');
+		/*$cart = Cart::where("id_user", Auth::user()->id)->get();
+		$order = Order::where("id_user", Auth::user()->id)->get();
+		$orderitem = OrderItem::where("id_user", Auth::user()->id)->get();*/
+
+		/*if($buffer -> price() == 0)
+		{*/
+			/*$new_order = new Order;
+			$new_order->id_user = Auth::user()->id;
+			$new_order->status="Новая";
+			$new_order->save();
+
+			$new_orderitems = new OrderItem;
+			$new_orderitems->id_order = increment('id_order');
+			$new_orderitems->id_product = $id;
+			$new_orderitems->price = $cart->product->price;
+			$new_orderitems->count = $cart->product->count;
+			$new_orderitems->save();
+
+			return redirect('/cart');
+		//}
+	}*/
 }
