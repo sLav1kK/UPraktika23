@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
     	<div class="t-c">
-          <p class="p-20 sma-t">Каталог доступных товаров</p>
+          <p class="p-20 sma-t">Корзина</p>
         </div>
         @foreach($carts as $cart)
       	<div class="selfcard d-flex plr-40 mb-40">

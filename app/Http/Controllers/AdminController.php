@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Category;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -58,6 +61,13 @@ class AdminController extends Controller
         Category::find($id)->delete();
         return redirect()->route('admin');
     }
+
+    public function deleteorder($id)
+    {
+        Cart::find($id)->delete();
+        return redirect()->route('admin');
+    }
+
     public function updateSubmit($id, Request $req)
     {
         $Product = Product::find($id);
@@ -86,5 +96,22 @@ class AdminController extends Controller
     {
         Product::find($id)->delete();
         return redirect()->route('admin');
+    }
+    public function editSubmitorder($id, Request $req)
+    {
+        $Cart = Cart::find($id);
+        $Cart->id_basket = $req->input('id_basket');
+        $Cart->id_user = $req->input('id_user');
+        $Cart->id_product = $req->input('id_product');
+        $Cart->count = $req->input('count');
+        $Cart->status = $req->input('status');
+        $Cart->save();
+
+        return redirect()->route('admin');
+    }
+    public function editorder($id)
+    {
+        $Cart = new Cart;
+        return view('editorder', ['Cart'=>$Cart->find($id)]);
     }
 }

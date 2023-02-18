@@ -28,7 +28,9 @@
         </div>
         <div class="col-xl-12 col-md-12 col-12">
             <div>
-                <p>Заявки на покупку</p>
+                <div>
+                    <p class="p-20 sma-t">Все заявки на покупку</p>
+                </div>
                 <form method="get" action="/home">
                   <select name="filter" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     @foreach($Carts as $c)
@@ -38,16 +40,17 @@
                   <input type="submit" class="btn btn-warning">
                 </form>
                 @foreach($Carts as $ca)
-                  <div class="col-xl-3 col-md-4 col-12 p-20">
+                  <div class="col-xl-12 col-md-12 col-12 p-20">
                     <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">{{ $ca->product->name }}</h5>
-                        <p class="card-text">{{ $ca->product->price }}</p>
-                        <a href="/home/deleteorder" ><button class="btn btn-danger">Удалить</button></a>
+                      <div class="card-body d-flex t-c cartdiv">
+                        <h5 class="card-title col-xl-3 col-md-3 col-12">{{ $ca->product->name }}</h5>
+                        <p class="card-text col-xl-3 col-md-3 col-12">{{ $ca->product->price }}</p>
+                        <img src="img/{{$ca->Product->urlphoto}}" class="ImgCart col-xl col-md-3 col-12" alt="...">
+                        <a href="/home/deleteorder/{{ $ca->id }}" class="col-xl-3 col-md-3 col-12"><button class="btn btn-danger">Удалить</button></a>
                       </div>
                     </div>
                   </div>
-                  @endforeach
+                @endforeach
             </div>
         </div>
     </div>

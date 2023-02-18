@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('urlphoto');
             $table->integer('price');
             $table->integer('year');
-            $table->string('count');
+            $table->string('count')->default(1);
             $table->string('country');
             $table->integer('model');
             $table->timestamps();

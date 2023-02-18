@@ -13,6 +13,7 @@ class Cart extends Model
 
     protected $fillable = ['status'];
 
+
     public function User()
     {
     	return $this->hasOne(User::class, 'id', 'id_user');

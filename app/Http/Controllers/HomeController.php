@@ -27,21 +27,31 @@ class HomeController extends Controller
     {
         if ($req->filter == null)
         {
-            $Carts = Cart::where('id_user', Auth::user()->id)->get();
+            $Carts = Cart::where('id_user', Auth::user()->id)->where('status', '!=', 'Корзина')->get();
         }
         else
         {
-            $Carts = Cart::where('id_user', Auth::user()->id)->where("id_basket", $req->filter)->get();
+            $Carts = Cart::where('id_user', Auth::user()->id)->where('status', '!=', 'Корзина')->where("id_basket", $req->filter)->get();
         }
         return view('home', ["Carts" => $Carts]);
     }
-        public function deleteorder(Request $req)
+    public function deleteorder(Request $req, $id)
     {
-            $Carts = Cart::where('id_user', Auth::user()->id)->where("id_basket", $req->id_basket)->get();
-            foreach ($Carts as $c) 
+            /*if ($req->filter == null)
             {
-                $c->delete();
+                $Cart = Cart::where('id_user', Auth::user()->id)->get();
+                $Cart->delete();
             }
-            return redirect('/home');
+            else
+            {
+                $Carts = Cart::where('id_user', Auth::user()->id)->where("id_basket", $req->id_basket)->get();
+                foreach ($Carts as $c) 
+                    {
+                        $c->delete();
+                    }
+            }
+            return redirect('/home');*/
+            Cart::find($id)->delete();
+            return redirect()->route('home');
     }
 }

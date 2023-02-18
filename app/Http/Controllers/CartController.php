@@ -67,14 +67,24 @@ class CartController extends Controller
 			}
 			return redirect('/cart');
 	}
-	public function saveOrder()
-	{
-			$cart = Cart::where("id_user", Auth::user()->id)->get();
-			foreach ($cart as $c) 
-			{
-				$c->increment('id_basket');
-            	$c->update(['status'=>'Новая']);
-        	}
-			return redirect('/cart');
-	}
+	public function saveOrder(){
+
+        $data = Cart::join('products', 'products.id', '=', 'carts.id_product')->select('*', 'carts.id as id_carts', 'carts.count as count')->where('id_user', Auth::user()->id)->get()->toArray();
+        // return dd($data);
+        if($data == null)
+        {
+        	return redirect('/cart');
+        }
+        else
+        {
+        	Order::create(['id_user'=>$data[0]['id_user']]);
+	        $dataOrder = Order::latest()->first();
+
+	        foreach($data as $key=>$elem){
+	            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
+	            Cart::where('id', $elem['id_carts'])->delete();
+	        }
+	        return redirect('/cart');
+        }
+    }
 }

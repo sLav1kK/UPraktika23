@@ -252,3 +252,12 @@ li.nav-item.dropdown::marker
 {
     margin-bottom: 40px!important;
 }
+.cartdiv
+{
+    display: flex!important;
+    align-items: center!important;
+}
+.mb-0
+{
+    margin-bottom: 0rem!important;
+}
