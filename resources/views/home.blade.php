@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 pad-20">
@@ -33,26 +35,36 @@
                 </div>
                 <form method="get" action="/home">
                   <select name="filter" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    @foreach($Carts as $c)
-                    <option value="{{ $c->id_basket }}">Номер заказа - {{ $c->id_basket }}</option>
+                    @foreach($Order as $or)
+                    <option value="{{ $or->id }}">Заявка - {{ $or->id }}</option>
                     @endforeach
+                  </select>
+                  <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option value="{{ $or->status }}">Статус - {{ $or->status }}</option>
                   </select>
                   <input type="submit" class="btn btn-warning">
                 </form>
-                @foreach($Carts as $ca)
-                  <div class="col-xl-12 col-md-12 col-12 p-20">
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body d-flex t-c cartdiv">
-                        <h5 class="card-title col-xl-3 col-md-3 col-12">{{ $ca->product->name }}</h5>
-                        <p class="card-text col-xl-3 col-md-3 col-12">{{ $ca->product->price }}</p>
-                        <img src="img/{{$ca->Product->urlphoto}}" class="ImgCart col-xl col-md-3 col-12" alt="...">
-                        <a href="/home/deleteorder/{{ $ca->id }}" class="col-xl-3 col-md-3 col-12"><button class="btn btn-danger">Удалить</button></a>
-                      </div>
-                    </div>
-                  </div>
+                
+                
+                @foreach($orderItem as $key=>$elemOrderItem)
+                    @if($orderItem[$key]['id_order'] != $prev_id)
+                    <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
+                        
+
+                    @endif
+                    <div class="selfcard d-flex plr-40 mb-40">
+                            <div class="col-xl-8 col-md-6 col-12 pad-20">
+                                <p class="fw-bold">Название - {{ $orderItem[$key]['name'] }}.</p>
+                                <p>Цена - {{ $orderItem[$key]['price'] }} рублей.</p>
+                            </div>
+                            <div class="col-xl-4 col-md-6 col-12 t-c">
+                                <img src="" class="ImgCart" alt="">
+                            </div>
+                        </div> 
+                    <div class="d-none">{{ $prev_id = $orderItem[$key]['id'] }}</div>
                 @endforeach
             </div>
         </div>
     </div>
-</div>
+</div> 
 @endsection

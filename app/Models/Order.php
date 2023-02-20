@@ -13,6 +13,7 @@ class Order extends Model
     protected $fillable = [
         'id_user',
         'name',
+        'price',
     ];
 
     public function items() {

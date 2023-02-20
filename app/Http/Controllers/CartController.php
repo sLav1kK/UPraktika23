@@ -77,11 +77,12 @@ class CartController extends Controller
         }
         else
         {
-        	Order::create(['id_user'=>$data[0]['id_user']]);
+        	$sumprice = array_sum(array_column($data, 'price'));
+        	Order::create(['id_user'=>$data[0]['id_user'], 'price'=>$sumprice]);
 	        $dataOrder = Order::latest()->first();
 
 	        foreach($data as $key=>$elem){
-	            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
+	            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'id_product'=>$elem['id_product'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
 	            Cart::where('id', $elem['id_carts'])->delete();
 	        }
 	        return redirect('/cart');

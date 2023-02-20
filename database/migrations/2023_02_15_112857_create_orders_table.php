@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('id_user');
-            $table->string('status');
+            $table->string('status')->default('Новая');
             $table->integer('price');
             $table->timestamps();
         });

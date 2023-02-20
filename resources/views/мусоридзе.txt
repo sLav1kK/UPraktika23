@@ -1,0 +1,10 @@
+ <!-- @foreach($OrderItem as $order)
+                        @foreach($order as $orit)
+                            <div class="card-body d-flex t-c cartdiv">
+                            <h5 class="card-title col-xl-3 col-md-3 col-12">{{ $orit->name }}</h5>
+                            <p class="card-text col-xl-3 col-md-3 col-12">{{ $orit->price }}</p>
+                            <img src="img/{{$orit->Product->urlphoto}}" class="ImgCart col-xl col-md-3 col-12" alt="...">
+                            <a href="/home/deleteorder/{{ $orit->id }}" class="col-xl-3 col-md-3 col-12"><button class="btn btn-danger">Удалить</button></a>
+                          </div>
+                        @endforeach
+                      @endforeach -->
