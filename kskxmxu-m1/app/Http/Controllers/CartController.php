@@ -67,41 +67,25 @@ class CartController extends Controller
 			}
 			return redirect('/cart');
 	}
-	public function saveOrder()
-	{
-			$cart = Cart::where("id_user", Auth::user()->id)->get();
-			foreach ($cart as $c) 
-			{
-				$c->increment('id_basket');
-            	$c->update(['status'=>'Новая']);
-        	}
-			return redirect('/cart');
-	}
-	/*public function saveOrder($id)
-	{
-		$cart = Cart::find($id);
-		$buffer = Order::where("id_user", Auth::user()->id)->get();
-		$bufferItem = OrderItem::where("id_user", Auth::user()->id)->get();
-		$sumpriceorder = OrderItem::where("id_order", Auth::user()->id)->sum('price');
-		/*$cart = Cart::where("id_user", Auth::user()->id)->get();
-		$order = Order::where("id_user", Auth::user()->id)->get();
-		$orderitem = OrderItem::where("id_user", Auth::user()->id)->get();*/
+	public function saveOrder(){
 
-		/*if($buffer -> price() == 0)
-		{*/
-			/*$new_order = new Order;
-			$new_order->id_user = Auth::user()->id;
-			$new_order->status="Новая";
-			$new_order->save();
+        $data = Cart::join('products', 'products.id', '=', 'carts.id_product')->select('*', 'carts.id as id_carts', 'carts.count as count')->where('id_user', Auth::user()->id)->get()->toArray();
+        // return dd($data);
+        if($data == null)
+        {
+        	return redirect('/cart');
+        }
+        else
+        {
+        	$sumprice = array_sum(array_column($data, 'price'));
+        	Order::create(['id_user'=>$data[0]['id_user'], 'price'=>$sumprice]);
+	        $dataOrder = Order::latest()->first();
 
-			$new_orderitems = new OrderItem;
-			$new_orderitems->id_order = increment('id_order');
-			$new_orderitems->id_product = $id;
-			$new_orderitems->price = $cart->product->price;
-			$new_orderitems->count = $cart->product->count;
-			$new_orderitems->save();
-
-			return redirect('/cart');
-		//}
-	}*/
+	        foreach($data as $key=>$elem){
+	            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'id_product'=>$elem['id_product'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
+	            Cart::where('id', $elem['id_carts'])->delete();
+	        }
+	        return redirect('/cart');
+        }
+    }
 }

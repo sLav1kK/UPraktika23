@@ -257,3 +257,7 @@ li.nav-item.dropdown::marker
     display: flex!important;
     align-items: center!important;
 }
+.mb-0
+{
+    margin-bottom: 0rem!important;
+}

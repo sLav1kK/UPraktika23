@@ -58,7 +58,7 @@
             @endforeach
         </div>
 
-        <div class="row">
+        <div class="row p-20">
             <h4>Все заявки</h4>
             @foreach($Carts as $ca)
               <div class="col-xl-12 col-md-12 col-12 p-20">
@@ -66,7 +66,8 @@
                   <div class="card-body">
                     <h5 class="card-title">{{ $ca->product->name }}</h5>
                     <p class="card-text">{{ $ca->product->price }}</p>
-                    <a href="/home/deleteorder" ><button class="btn btn-danger">Удалить</button></a>
+                    <a href="/admin/editorder/{{ $ca->id }}" ><button class="btn btn-primary">Редактировать</button></a>
+                    <a href="/admin/deleteorder/{{ $ca->id }}"><button class="btn btn-danger">Удалить</button></a>
                   </div>
                 </div>
               </div>

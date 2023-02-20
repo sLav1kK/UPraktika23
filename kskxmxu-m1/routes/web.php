@@ -19,11 +19,17 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/home/deleteorder', [App\Http\Controllers\HomeController::class, 'deleteorder'])->name('deleteorder');
+Route::get('/home/deleteorder/{id}', [App\Http\Controllers\HomeController::class, 'deleteorder'])->name('deleteorder');
 
 Route::match(['get', 'post'], '/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
 
 Route::post('/admin/addcategory', [App\Http\Controllers\AdminController::class, 'addcategory'])->name('addcategory');
+
+Route::get('/admin/deleteorder/{id}', [App\Http\Controllers\AdminController::class, 'deleteorder'])->name('deleteorder');
+
+Route::get('/admin/editorder/{id}', [App\Http\Controllers\AdminController::class, 'editorder'])->name('updateorder');
+
+Route::post('/admin/editorder/{id}', [App\Http\Controllers\AdminController::class, 'editSubmitorder'])->name('updateSubmitorder');
 
 Route::get('/admin/deletecategory/{id}', [App\Http\Controllers\AdminController::class, 'deletecategory'])->name('deletecategory');
 
@@ -54,3 +60,5 @@ Route::get('/cart/saveorder', [App\Http\Controllers\CartController::class, 'save
 Route::get('/geo', function () {
     return view('geo');
 })->name('geo');
+
+Route::get('/test', [App\Http\Controllers\AdminController::class, 'abrakadabra']);

@@ -14,7 +14,9 @@ class OrderItem extends Model
     protected $fillable = [
         'id_product',
         'price',
-        'count',
+        'quantity',
+        'id_order',
+        'name',
     ];
 
     public $timestamps = false;
