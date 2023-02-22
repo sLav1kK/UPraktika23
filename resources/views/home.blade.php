@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!--  -->
+
 
 <div class="container">
     <div class="row justify-content-center">
@@ -33,24 +33,33 @@
                 <div>
                     <p class="p-20 sma-t">Все заявки на покупку</p>
                 </div>
-                <form method="get" action="/home">
+                <!-- <form method="get" action="/home">
                   <select name="filter" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    @foreach($Order as $or)
-                    <option value="{{ $or->id }}">Заявка - {{ $or->id }}</option>
+                    @foreach($orderItem as $key=>$elemOrderItem)
+                    @if($orderItem[$key]['id_order'] != $prev_id2)
+                    <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
+                    <option value="{{$orderItem[$key]['id_order']}}">Заявка - {{$orderItem[$key]['id_order']}}</option>
+                    @endif
+                    <div class="d-none">{{ $prev_id2 = $orderItem[$key]['id'] }}</div>
                     @endforeach
                   </select>
                   <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option value="{{ $or->status }}">Статус - {{ $or->status }}</option>
+                    <option value="Новая">Статус - Новая</option>
+                    <option value="Подтвержденная">Статус - Подтвержденная</option>
+                    <option value="Отмененная">Статус - Отмененная</option>
                   </select>
                   <input type="submit" class="btn btn-warning">
-                </form>
+                </form> -->
                 
                 
                 @foreach($orderItem as $key=>$elemOrderItem)
                     @if($orderItem[$key]['id_order'] != $prev_id)
+                    <hr>
                     <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
-                        
-
+                    <p>Статус - {{$orderItem[$key]['status']}}</p>
+                        @if($orderItem[$key]['status'] == 'Новая')
+                        <a href="/home/deleteorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Удалить заявку</a>
+                        @endif   
                     @endif
                     <div class="selfcard d-flex plr-40 mb-40">
                             <div class="col-xl-8 col-md-6 col-12 pad-20">

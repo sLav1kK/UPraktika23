@@ -59,19 +59,55 @@
         </div>
 
         <div class="row p-20">
-            <h4>Все заявки</h4>
-            @foreach($Carts as $ca)
-              <div class="col-xl-12 col-md-12 col-12 p-20">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ $ca->product->name }}</h5>
-                    <p class="card-text">{{ $ca->product->price }}</p>
-                    <a href="/admin/editorder/{{ $ca->id }}" ><button class="btn btn-primary">Редактировать</button></a>
-                    <a href="/admin/deleteorder/{{ $ca->id }}"><button class="btn btn-danger">Удалить</button></a>
-                  </div>
+            <div class="col-xl-12 col-md-12 col-12">
+                <div>
+                    <div>
+                        <p class="p-20 sma-t">Все заявки на покупку</p>
+                    </div>
+                    <form method="get" action="/admin">
+                      <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="Новая">Статус - Новая</option>
+                        <option value="Подтвержденная">Статус - Подтвержденная</option>
+                        <option value="Отмененная">Статус - Отмененная</option>
+                      </select>
+                      <input type="submit" class="btn btn-warning">
+                      <a href="/admin" class="btn btn-outline-info">Сброс фильтров</a>
+                    </form>
+                    
+                    
+                    
+                    @foreach($orderItem as $key=>$elemOrderItem)
+                        @if($orderItem[$key]['id_order'] != $prev_id)
+                        <hr>
+                        <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
+                        <p>Пользователь - {{$orderItem[$key]['id_user']}}</p>
+                        @foreach($info_user as $keyUser=>$elemUser)
+                            @if($info_user[$keyUser]['id'] == $orderItem[$key]['id_user'])
+                                <p>ФИО - {{ $info_user[$keyUser]['name'] ." ". $info_user[$keyUser]['surname'] ." ". $info_user[$keyUser]['patronymic'] }}</p>
+                            @endif
+                        @endforeach
+                        <p>Статус - {{$orderItem[$key]['status']}}</p>
+                        <p>Дата создания - {{$orderItem[$key]['created_at']}}</p>
+                        <p>Дата последнего редактирования - {{$orderItem[$key]['updated_at']}}</p>
+                            @if($orderItem[$key]['status'] == 'Новая')
+                                <a href="/admin/confirmorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Подтвердить заявку</a>
+                                <a href="/admin/cancelorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Отменить заявку</a>
+                            @endif  
+                        @endif
+                        <div class="selfcard d-flex plr-40 mb-40">
+                                <div class="col-xl-8 col-md-6 col-12 pad-20">
+                                    <p class="fw-bold">Название - {{ $orderItem[$key]['name'] }}.</p>
+                                    <p>Цена - {{ $orderItem[$key]['price'] }} рублей.</p>
+                                    <p>Количество - {{ $orderItem[$key]['quantity'] }}</p>
+                                </div>
+                                <div class="col-xl-4 col-md-6 col-12 t-c">
+                                    <img src="" class="ImgCart" alt="">
+                                </div>
+                            </div> 
+                        <div class="d-none">{{ $prev_id = $orderItem[$key]['id'] }}</div>
+                    @endforeach
                 </div>
-              </div>
-            @endforeach
+            </div>
         </div>    
             
             @else

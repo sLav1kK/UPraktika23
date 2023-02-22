@@ -25,11 +25,11 @@ Route::match(['get', 'post'], '/admin', [App\Http\Controllers\AdminController::c
 
 Route::post('/admin/addcategory', [App\Http\Controllers\AdminController::class, 'addcategory'])->name('addcategory');
 
-Route::get('/admin/deleteorder/{id}', [App\Http\Controllers\AdminController::class, 'deleteorder'])->name('deleteorder');
+Route::get('/admin/confirmorder/{id}', [App\Http\Controllers\AdminController::class, 'confirmorder'])->name('confirmorder');
 
-Route::get('/admin/editorder/{id}', [App\Http\Controllers\AdminController::class, 'editorder'])->name('updateorder');
+Route::get('/admin/cancelorder/{id}', [App\Http\Controllers\AdminController::class, 'cancelorder'])->name('cancelorder');
 
-Route::post('/admin/editorder/{id}', [App\Http\Controllers\AdminController::class, 'editSubmitorder'])->name('updateSubmitorder');
+Route::post('/admin/cancelorder/{id}', [App\Http\Controllers\AdminController::class, 'cancelSubmitorder'])->name('cancelSubmitorder');
 
 Route::get('/admin/deletecategory/{id}', [App\Http\Controllers\AdminController::class, 'deletecategory'])->name('deletecategory');
 
@@ -55,7 +55,7 @@ Route::get('/cart/minus/{id}', [App\Http\Controllers\CartController::class, 'min
 
 Route::get('/cart/pay/{id}', [App\Http\Controllers\CartController::class, 'pay'])->name('pay');
 
-Route::get('/cart/saveorder', [App\Http\Controllers\CartController::class, 'saveorder'])->name('saveorder');
+Route::match(['get', 'post'], '/cart/saveorder', [App\Http\Controllers\CartController::class, 'saveorder'])->name('saveorder');
 
 Route::get('/geo', function () {
     return view('geo');

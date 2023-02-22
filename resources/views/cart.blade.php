@@ -18,7 +18,12 @@
           </div>
       	</div>
       	@endforeach
-      	<a href="{{ route('saveorder')}}" class="btn btn-warning">Сформировать заказ</a>
+        <p>Введите пароль для подтверждения</p>
+        <form method="POST" action="{{ route('saveorder') }}">
+          @csrf
+          <input id="password" type="password" class="col-md-6" name="password" required>
+          <input type="submit" name="btn" class="btn btn-warning" value="Сформировать заказ">
+        </form>
     </div>
 </div>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CartController extends Controller
 {
@@ -67,25 +68,38 @@ class CartController extends Controller
 			}
 			return redirect('/cart');
 	}
-	public function saveOrder(){
-
-        $data = Cart::join('products', 'products.id', '=', 'carts.id_product')->select('*', 'carts.id as id_carts', 'carts.count as count')->where('id_user', Auth::user()->id)->get()->toArray();
-        // return dd($data);
-        if($data == null)
+	public function saveOrder(Request $req){
+		if ($req->isMethod('post'))
         {
-        	return redirect('/cart');
+        	if(Hash::check($req->input('password'), Auth::user()->password))
+        	{
+        		return redirect()->route('saveorder');
+        	}
+        	else
+        	{
+        		return redirect('/cart');
+        	}
         }
-        else
+        if ($req->isMethod('get'))
         {
-        	$sumprice = array_sum(array_column($data, 'price'));
-        	Order::create(['id_user'=>$data[0]['id_user'], 'price'=>$sumprice]);
-	        $dataOrder = Order::latest()->first();
-
-	        foreach($data as $key=>$elem){
-	            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'id_product'=>$elem['id_product'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
-	            Cart::where('id', $elem['id_carts'])->delete();
+        	$data = Cart::join('products', 'products.id', '=', 'carts.id_product')->select('*', 'carts.id as id_carts', 'carts.count as count')->where('id_user', Auth::user()->id)->get()->toArray();
+	        // return dd($data);
+	        if($data == null)
+	        {
+	        	return redirect('/cart');
 	        }
-	        return redirect('/cart');
+	        else
+	        {
+	        	$sumprice = array_sum(array_column($data, 'price'));
+	        	Order::create(['id_user'=>$data[0]['id_user'], 'price'=>$sumprice]);
+		        $dataOrder = Order::latest()->first();
+
+		        foreach($data as $key=>$elem){
+		            OrderItem::create(['name'=>$elem['name'], 'id_order'=>$dataOrder['id'], 'id_product'=>$elem['id_product'], 'price'=>$elem['price'], 'quantity'=>$elem['count']]);
+		            Cart::where('id', $elem['id_carts'])->delete();
+		        }
+		        return redirect('/cart');
+	        }
         }
     }
 }

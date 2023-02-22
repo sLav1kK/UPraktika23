@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -16,10 +17,22 @@ class AdminController extends Controller
     {
         if ($req->isMethod('get'))
         {
+            $info_user = User::all();
             $Products = Product::all();
             $Category = Category::all();
             $Carts = \App\Models\Cart::where('status', 'Новая')->get();
-            return view('admin', ["Products"=>$Products, "Category"=>$Category, "Carts"=>$Carts]);
+
+            if ($req->status == null)
+                {
+                    $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->where('status', '!=', 'Корзина')->orderBy('id_order', 'asc')->get()->toArray();
+                }
+                else
+                {
+                    $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->orderBy('id_order', 'asc')->where('status', $req->status)->get()->toArray();
+                }
+            // $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->orderBy('id_order', 'asc')->get()->toArray();
+
+            return view('admin', ["Products"=>$Products, "Category"=>$Category, "Carts"=>$Carts, /*"Order" => $Order, */'orderItem'=>$orderItem, 'prev_id'=>0, 'info_user'=>$info_user]);
         }
         if ($req->isMethod('post'))
         {
@@ -62,9 +75,9 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
-    public function deleteorder($id)
+    public function confirmorder($id)
     {
-        Cart::find($id)->delete();
+        Order::find($id)->update(['status' => 'Подтвержденная']);
         return redirect()->route('admin');
     }
 
@@ -97,21 +110,18 @@ class AdminController extends Controller
         Product::find($id)->delete();
         return redirect()->route('admin');
     }
-    public function editSubmitorder($id, Request $req)
+    public function cancelSubmitorder($id, Request $req)
     {
-        $Cart = Cart::find($id);
-        $Cart->id_basket = $req->input('id_basket');
-        $Cart->id_user = $req->input('id_user');
-        $Cart->id_product = $req->input('id_product');
-        $Cart->count = $req->input('count');
-        $Cart->status = $req->input('status');
-        $Cart->save();
+        $Order = Order::find($id);
+        $Order->status = 'Отмененная';
+        $Order->comment = $req->input('comment');
+        $Order->save();
 
         return redirect()->route('admin');
     }
-    public function editorder($id)
+    public function cancelorder($id)
     {
-        $Cart = new Cart;
-        return view('editorder', ['Cart'=>$Cart->find($id)]);
+        $Order = new Order;
+        return view('cancelorder', ['Order'=>$Order->find($id)]);
     }
 }
