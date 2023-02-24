@@ -20,17 +20,17 @@
     	<section class="header">
 	      <div class="container">
 	        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-	          <a href="{{ route('about') }}" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+	          <a href="{{ route('about') }}" class="d-flex align-items-center col-xl-3 col-lg-4 col-md-5 col-sm-5 mb-2 mb-md-0 text-dark text-decoration-none jcsmc">
 	            <img src="/img/logo3.png" class="logo" alt="">
 	          </a>
 
-	          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+	          <ul class="nav col-12 col-md-4 col-sm-4 mb-2 justify-content-center mb-md-0">
 	            <li><a href="{{ route('about') }}" class="nav-link px-4 link-dark">О нас</a></li>
 	            <li><a href="{{ route('catalog') }}" class="nav-link px-4 link-dark">Каталог</a></li>
 	            <li><a href="{{ route('geo') }}" class="nav-link px-4 link-dark">Где нас найти?</a></li>
 	          </ul>
 
-	          <div class="col-md-3 text-end">
+	          <div class="col-md-3 col-sm-3 text-end">
 	            @guest
                     @if (Route::has('login'))
                             <a href="{{ route('login') }}" class="btn btn-outline-info">{{ __('Вход') }}</a>

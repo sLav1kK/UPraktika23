@@ -15,6 +15,7 @@ class Order extends Model
         'id_user',
         'name',
         'price',
+        'status',
     ];
 
     public function items() {

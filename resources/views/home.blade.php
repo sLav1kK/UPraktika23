@@ -10,13 +10,13 @@
                 <div class="card-header">{{ __('Личный кабинет') }}</div>
 
                 <div class="card-body">
-                    <p>Имя: {{ Auth::user()->name }}</p>
-                    <p>Фамилия: {{ Auth::user()->surname }}</p>
-                    <p>Отчество: {{ Auth::user()->patronymic }}
+                    <p><strong>Имя:</strong> {{ Auth::user()->name }}</p>
+                    <p><strong>Фамилия:</strong> {{ Auth::user()->surname }}</p>
+                    <p><strong>Отчество:</strong> {{ Auth::user()->patronymic }}
                         @if(Auth::user()->patronymic == 0) Отсутствует 
                         @endif
                     </p>
-                    <p>Почта: {{ Auth::user()->email }}</p>
+                    <p><strong>Почта:</strong> {{ Auth::user()->email }}</p>
                     <div class="p-50">
                         <p>Открыть корзину с заказами</p>
                         <a class="btn btn-outline-info mb-20" href="{{ route('cart') }}">Корзина</a>
@@ -31,45 +31,25 @@
         <div class="col-xl-12 col-md-12 col-12">
             <div>
                 <div>
-                    <p class="p-20 sma-t">Все заявки на покупку</p>
+                    <h2 class="p-20 sma-t">Все заявки на покупку</h2>
                 </div>
-                <!-- <form method="get" action="/home">
-                  <select name="filter" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    @foreach($orderItem as $key=>$elemOrderItem)
-                    @if($orderItem[$key]['id_order'] != $prev_id2)
-                    <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
-                    <option value="{{$orderItem[$key]['id_order']}}">Заявка - {{$orderItem[$key]['id_order']}}</option>
-                    @endif
-                    <div class="d-none">{{ $prev_id2 = $orderItem[$key]['id'] }}</div>
-                    @endforeach
-                  </select>
-                  <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option value="Новая">Статус - Новая</option>
-                    <option value="Подтвержденная">Статус - Подтвержденная</option>
-                    <option value="Отмененная">Статус - Отмененная</option>
-                  </select>
-                  <input type="submit" class="btn btn-warning">
-                </form> -->
-                
-                
+                         
                 @foreach($orderItem as $key=>$elemOrderItem)
                     @if($orderItem[$key]['id_order'] != $prev_id)
                     <hr>
-                    <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
-                    <p>Статус - {{$orderItem[$key]['status']}}</p>
+                    <p><strong>Заявка</strong> №{{$orderItem[$key]['id_order']}}</p>
+                    <p><strong>Статус -</strong> {{$orderItem[$key]['status']}}</p>
+                    <p><strong>Общая сумма -</strong> {{$orderItem[$key]['price']}} рублей</p>
                         @if($orderItem[$key]['status'] == 'Новая')
                         <a href="/home/deleteorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Удалить заявку</a>
                         @endif   
                     @endif
-                    <div class="selfcard d-flex plr-40 mb-40">
-                            <div class="col-xl-8 col-md-6 col-12 pad-20">
-                                <p class="fw-bold">Название - {{ $orderItem[$key]['name'] }}.</p>
-                                <p>Цена - {{ $orderItem[$key]['price'] }} рублей.</p>
-                            </div>
-                            <div class="col-xl-4 col-md-6 col-12 t-c">
-                                <img src="" class="ImgCart" alt="">
-                            </div>
-                        </div> 
+                    <div class="selfcard d-flex mb-20 t-c">
+                        <div class="col-xl-12 col-md-12 col-12 pad-20 d-flex">
+                            <p class="fw-bold col-xl-6 col-md-6 col">Название - {{ $orderItem[$key]['name'] }}.</p>
+                            <p class="col-xl-6 col-md-6 col"><strong>Количество - </strong>{{ $orderItem[$key]['quantity'] }} шт.</p>
+                        </div>
+                    </div> 
                     <div class="d-none">{{ $prev_id = $orderItem[$key]['id'] }}</div>
                 @endforeach
             </div>

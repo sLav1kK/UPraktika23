@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-md-6 col-12">
+            <div class="col-xl-12 col-md-12 col-12">
                 <form method="post" action="{{ route('cancelSubmitorder', $Order->id)}}" enctype="multipart/form-data">@csrf
                     <p class="mb-0">Комментарий</p><input id="comment" value="{{$Order->comment}}" type="text" class="form-control" name="comment" placeholder="Комментарий">
                     <input type="submit"  class="btn btn-outline-info" value="Оставить комментарий">

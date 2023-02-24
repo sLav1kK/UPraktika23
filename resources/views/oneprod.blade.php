@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="row mtb-30 c-blue selfcard pad-20">
-        <h3>Характеристики товара:</h3>
+        <p class="sma-t">Характеристики товара:</p>
         <div>
           <p>Страна-производитель: {{$Product->country}}</p>
           <p>Год выпуска: {{$Product->year}}</p>

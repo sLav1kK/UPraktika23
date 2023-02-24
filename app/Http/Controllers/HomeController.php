@@ -29,12 +29,12 @@ class HomeController extends Controller
     {
         if ($req->filter == null)
         {   
-            $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->where('id_user', Auth::user()->id)->orderBy('id_order', 'asc')->get()->toArray();
+            $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->latest()->where('id_user', Auth::user()->id)->orderBy('id_order', 'asc')->get()->toArray();
             // $Order = Order::where('id_user', Auth::user()->id)->where('status', '!=', 'Корзина')->get();
         }
         else
         {
-            $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->where('id_user', Auth::user()->id)->orderBy('id_order', 'asc')->/*where("id_order", $req->filter)->where("status", $req->status)->*/get()->toArray();
+            $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->latest()->where('id_user', Auth::user()->id)->orderBy('id_order', 'asc')->/*where("id_order", $req->filter)->where("status", $req->status)->*/get()->toArray();
             // $Order = Order::where('id_user', Auth::user()->id)->where('status', '!=', 'Корзина')->where("order_items.id_order", $req->filter)->where("status", $req->status)->get();
         }
         // $orderItem = OrderItem::join("orders", "orders.id", "=", "order_items.id_order")->where('id_user', Auth::user()->id)->orderBy('id_order', 'asc')->get()->toArray();

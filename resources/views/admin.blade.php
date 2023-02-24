@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Админ панель') }}</div>
             </div>
         </div>
-        <div class="row">
+        <div class="row bg-g mb-40 c-w">
             <div class="col-xl-6 col-md-6 col-12">
                 <h4>Добавление товаров</h4>
                 <form method="post" action="/admin" enctype="multipart/form-data">@csrf
@@ -35,7 +35,7 @@
                 </form>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-40">
             <h4>Все товары</h4>
             @foreach($Products as $p)
               <div class="col-xl-3 col-md-4 col-12 p-20">
@@ -58,10 +58,10 @@
             @endforeach
         </div>
 
-        <div class="row p-20">
+        <div class="row p-20 bg-g">
             <div class="col-xl-12 col-md-12 col-12">
-                <div>
-                    <div>
+                <div class="pnone">
+                    <div class="c-w">
                         <p class="p-20 sma-t">Все заявки на покупку</p>
                     </div>
                     <form method="get" action="/admin">
@@ -78,32 +78,31 @@
                     
                     @foreach($orderItem as $key=>$elemOrderItem)
                         @if($orderItem[$key]['id_order'] != $prev_id)
-                        <hr>
-                        <p>Заявка №{{$orderItem[$key]['id_order']}}</p>
-                        <p>Пользователь - {{$orderItem[$key]['id_user']}}</p>
-                        @foreach($info_user as $keyUser=>$elemUser)
-                            @if($info_user[$keyUser]['id'] == $orderItem[$key]['id_user'])
-                                <p>ФИО - {{ $info_user[$keyUser]['name'] ." ". $info_user[$keyUser]['surname'] ." ". $info_user[$keyUser]['patronymic'] }}</p>
-                            @endif
-                        @endforeach
-                        <p>Статус - {{$orderItem[$key]['status']}}</p>
-                        <p>Дата создания - {{$orderItem[$key]['created_at']}}</p>
-                        <p>Дата последнего редактирования - {{$orderItem[$key]['updated_at']}}</p>
-                            @if($orderItem[$key]['status'] == 'Новая')
-                                <a href="/admin/confirmorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Подтвердить заявку</a>
-                                <a href="/admin/cancelorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Отменить заявку</a>
-                            @endif  
+                        <div class="c-w">
+                            <hr>
+                            <p><strong>Заявка №</strong>{{$orderItem[$key]['id_order']}}</p>
+                            <p><strong>Пользователь -</strong> {{$orderItem[$key]['id_user']}}</p>
+                            @foreach($info_user as $keyUser=>$elemUser)
+                                @if($info_user[$keyUser]['id'] == $orderItem[$key]['id_user'])
+                                    <p><strong>ФИО -</strong> {{ $info_user[$keyUser]['name'] ." ". $info_user[$keyUser]['surname'] ." ". $info_user[$keyUser]['patronymic'] }}</p>
+                                @endif
+                            @endforeach
+                            <p><strong>Статус -</strong> {{$orderItem[$key]['status']}}</p>
+                            <p><strong>Общая сумма -</strong> {{$orderItem[$key]['price']}} рублей</p>
+                            <p><strong>Дата создания -</strong> {{$orderItem[$key]['created_at']}}</p>
+                            <p><strong>Дата последнего редактирования -</strong> {{$orderItem[$key]['updated_at']}}</p>
+                                @if($orderItem[$key]['status'] == 'Новая')
+                                    <a href="/admin/confirmorder/{{ $orderItem[$key]['id'] }}" class="btn btn-success mb-20">Подтвердить заявку</a>
+                                    <a href="/admin/cancelorder/{{ $orderItem[$key]['id'] }}" class="btn btn-danger mb-20">Отменить заявку</a>
+                                @endif
+                        </div>  
                         @endif
-                        <div class="selfcard d-flex plr-40 mb-40">
-                                <div class="col-xl-8 col-md-6 col-12 pad-20">
-                                    <p class="fw-bold">Название - {{ $orderItem[$key]['name'] }}.</p>
-                                    <p>Цена - {{ $orderItem[$key]['price'] }} рублей.</p>
-                                    <p>Количество - {{ $orderItem[$key]['quantity'] }}</p>
-                                </div>
-                                <div class="col-xl-4 col-md-6 col-12 t-c">
-                                    <img src="" class="ImgCart" alt="">
-                                </div>
-                            </div> 
+                        <div class="selfcard d-flex mb-20 t-c">
+                            <div class="col-xl-12 col-md-12 col-12 pad-20 d-flex">
+                                <p class="fw-bold col-xl-6 col-md-6 col">Название - {{ $orderItem[$key]['name'] }}.</p>
+                                <p class="col-xl-6 col-md-6 col"><strong>Количество - </strong>{{ $orderItem[$key]['quantity'] }} шт.</p>
+                            </div>
+                        </div> 
                         <div class="d-none">{{ $prev_id = $orderItem[$key]['id'] }}</div>
                     @endforeach
                 </div>

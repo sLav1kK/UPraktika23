@@ -1,7 +1,6 @@
-@font-face
-{
-	font-family: HussarBold!important;
-	src:  url(fonts/Trueno-wml2.otf)!important;
+@font-face {
+    font-family: 'Aegean';
+    src: url('fonts/f/Trueno-75PE.otf');
 }
 .logo
 {
@@ -54,6 +53,10 @@ header .nav-link:hover
 .carousel-item
 {
 	text-align: center!important;
+}
+.carousel-caption
+{
+    padding-bottom: 0.25rem!important;
 }
 .sma-t
 {
@@ -162,6 +165,10 @@ header .nav-link:hover
 {
     padding: 50px!important;
 }
+.dropdown-menu
+{
+    border-radius: 3px!important;
+}
 li.nav-item.dropdown::marker
 {
     content: '';
@@ -260,4 +267,46 @@ li.nav-item.dropdown::marker
 .mb-0
 {
     margin-bottom: 0rem!important;
+}
+.bg-g
+{
+    background-color: #505050!important;
+    padding: 30px!important;
+}
+.pnone p
+{
+    margin-bottom: 0.5rem!important;
+}
+.c-w
+{
+    color: white;
+}
+@media(min-width: 992px) and (max-width:  1200px)
+{
+    header .logo
+    {
+        width: 55%!important;  
+    }
+}
+@media(min-width: 576px) and (max-width:  992px)
+{
+    header .logo
+    {
+        width: 60%!important;  
+    }
+}
+@media(min-width: 100px) and (max-width:  576px)
+{
+    header .logo
+    {
+        width: 30%!important;  
+    }
+    .jcsmc
+    {
+        justify-content: center;
+    }
+    .jcsme
+    {
+        justify-content: end;
+    }
 }
